@@ -16,9 +16,11 @@ class CategoriaFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        return [
-            //
-        ];
-    }
+{
+    return [
+        'nombre' => $this->faker->unique()->word() . ' ' . $this->faker->numberBetween(1, 100),
+        'descripcion' => $this->faker->sentence(),
+        'activo' => true,
+    ];
+}
 }
