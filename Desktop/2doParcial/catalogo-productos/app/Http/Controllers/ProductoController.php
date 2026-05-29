@@ -28,10 +28,13 @@ class ProductoController extends Controller
         return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.'); // Mensaje flash [cite: 285]
     }
 
-    public function show(Producto $producto)
-    {
-        return view('productos.show', compact('producto'));
-    }
+    public function show($id)
+{
+    // Buscamos el producto con su categoría cargada (Eager Loading)
+    $producto = Producto::with('categoria')->findOrFail($id);
+    
+    return view('productos.show', compact('producto'));
+}
 
     public function edit(Producto $producto)
     {

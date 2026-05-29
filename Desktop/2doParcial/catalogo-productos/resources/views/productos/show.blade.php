@@ -1,23 +1,47 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- O el nombre de tu layout maestro --}}
 
 @section('content')
-<div class="max-w-xl mx-auto">
-    <div class="mb-4"><a href="{{ route('productos.index') }}" class="text-xs text-slate-400 hover:text-white">← Volver al catálogo</a></div>
-    
-    <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
-        <span class="text-[10px] font-bold bg-slate-800 px-2 py-1 rounded border border-slate-700 text-amber-400 uppercase tracking-wider">Detalle del Elemento</span>
-        <h1 class="text-2xl font-bold text-white mt-3 mb-2">{{ $producto->nombre }}</h1>
-        <p class="text-xs text-slate-400 mb-6">SKU Único del sistema: <span class="text-slate-200 font-mono">{{ $producto->sku }}</span></p>
-
-        <div class="space-y-3 text-sm border-t border-slate-800/80 pt-4 mb-6">
-            <div class="flex justify-between"><span class="text-slate-400">Categoría Asociada:</span> <span class="font-semibold text-white">{{ $producto->categoria->nombre }}</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">Precio Comercial:</span> <span class="font-semibold text-emerald-400">Bs. {{ number_format($producto->precio, 2) }}</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">Inventario en Almacén:</span> <span class="font-semibold text-white">{{ $producto->stock }} unidades</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">Estado de Suministro:</span> <span class="font-semibold {{ $producto->stock > 0 ? 'text-teal-400' : 'text-rose-400' }}">{{ $producto->stock > 0 ? 'Disponible' : 'Agotado sin stock' }}</span></div>
+<div class="container mt-5">
+    <div class="card bg-dark text-white border-secondary" style="max-width: 600px; margin: 0 auto;">
+        <div class="card-header border-secondary d-flex justify-content-between align-items-center">
+            <h4 class="text-warning mb-0">Detalles del Artículo</h4>
+            <span class="badge bg-success">ID: #{{ str_pad($producto->id, 4, '0', STR_PAD_LEFT) }}</span>
         </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="text-secondary small d-block">NOMBRE DEL PRODUCTO</label>
+                <h5 class="fw-bold">{{ $producto->nombre }}</h5>
+            </div>
 
-        <div class="flex justify-end gap-3 pt-4 border-t border-slate-800/60">
-            <a href="{{ route('productos.edit', $producto) }}" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold px-4 py-2 rounded-xl text-xs transition-colors">Modificar</a>
+            <div class="mb-3">
+                <label class="text-secondary small d-block">SKU / CÓDIGO</label>
+                <p class="text-light font-monospace">{{ $producto->sku ?? 'N/A' }}</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="text-secondary small d-block">CATEGORÍA</label>
+                <div>
+                    <span class="badge bg-info text-dark fw-bold">{{ $producto->categoria->nombre }}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label class="text-secondary small d-block">PRECIO UNITARIO</label>
+                    <p class="text-warning fw-bold fs-5">Bs. {{ number_format($producto->precio, 2) }}</p>
+                </div>
+                <div class="col-6 mb-3">
+                    <label class="text-secondary small d-block">STOCK DISPONIBLE</label>
+                    <p class="{{ $producto->stock > 0 ? 'text-light' : 'text-danger fw-bold' }}">
+                        {{ $producto->stock }} unidades
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer border-secondary text-end">
+            <a href="{{ route('productos.index') }}" class="btn btn-outline-warning btn-sm">
+                Volver al Inventario
+            </a>
         </div>
     </div>
 </div>

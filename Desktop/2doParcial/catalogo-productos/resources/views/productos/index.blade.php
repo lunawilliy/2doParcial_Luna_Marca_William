@@ -84,7 +84,10 @@
                             </td>
                             <td class="py-4 px-6 text-center">
                                 <div class="flex items-center justify-center space-x-2">
-                                    <a href="{{ route('productos.edit', $producto->id) }}" class="inline-flex items-center px-3 py-1.5 border border-amber-200 text-xs font-bold rounded-lg text-amber-800 bg-amber-50/50 hover:bg-amber-100 transition-all shadow-3xs">
+                                <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-sm btn-outline-info me-1">
+        Ver
+    </a>    
+                                <a href="{{ route('productos.edit', $producto->id) }}" class="inline-flex items-center px-3 py-1.5 border border-amber-200 text-xs font-bold rounded-lg text-amber-800 bg-amber-50/50 hover:bg-amber-100 transition-all shadow-3xs">
                                         Editar
                                     </a>
                                     <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este ítem?')" class="inline">
